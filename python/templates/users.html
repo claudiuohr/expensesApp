@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>User Profile</title>
+    <style>
+        table {
+            width: 50%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    {% if user %}
+        <h1>{{ user.firstName }} {{ user.lastName }}</h1>
+        <table>
+            <tr>
+                <th>Username</th>
+                <td>{{ user.username }}</td>
+            </tr>
+            <tr>
+                <th>Rent</th>
+                <td>{{ user.rent }}</td>
+            </tr>
+            <tr>
+                <th>Food</th>
+                <td>{{ user.food }}</td>
+            </tr>
+            <tr>
+                <th>Having Fun</th>
+                <td>{{ user.havingFun }}</td>
+            </tr>
+            <tr>
+                <th>School</th>
+                <td>{{ user.school }}</td>
+            </tr>
+            <tr>
+                <th>Personal</th>
+                <td>{{ user.personal }}</td>
+            </tr>
+        </table>
+        <form action="addExpense" method="post">
+            <input type="hidden" name="username" value="{{ user.username }}">
+            <label for="category">Category:</label>
+            <select name="category" id="category">
+                <option value="rent">Rent</option>
+                <option value="food">Food</option>
+                <option value="havingFun">Having Fun</option>
+                <option value="school">School</option>
+                <option value="personal">Personal</option>
+            </select><br>
+            <label for="amount">Amount:</label>
+            <input type="number" name="amount" placeholder="55"><br>
+            <input type="submit" value="Add Expense">
+        </form><br><br>
+        <form action="update_user" method="post">
+            <input type="hidden" name="username" value="{{ user.username }}">
+            <label for="fname">First Name</label>
+            <input type="text" name="fname" placeholder="{{ user.firstName }}"><br>
+            <label for="lname">First Name</label>
+            <input type="text" name="lname" placeholder="{{ user.lastName }}"><br>
+            <input type="submit" value="Update User">
+        </form><br><br>
+        <form action="update_password" method="post">
+            <input type="hidden" name="username" value="{{ user.username }}">
+            <label for="oldp">Old Password</label>
+            <input type="text" name="oldp" placeholder="parola"><br>
+            <label for="newp">New Password</label>
+            <input type="text" name="newp" placeholder="parola123"><br>
+            <input type="submit" value="Update Password">
+        </form><br><br>
+        <form action="delete_user" method="post">
+            <input type="hidden" name="username" value="{{ user.username }}">
+            <label for="password">Password</label>
+            <input type="text" name="password" placeholder="parola"><br>
+            <input type="submit" value="Delete User">
+        </form><br><br>
+    {% else %}
+        <p>User not found.</p>
+    {% endif %}
+</body>
+</html>
